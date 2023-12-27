@@ -455,7 +455,12 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   );
 }
 
-function WatchedSummary({ watched }) {
+function WatchedSummary ( { watched } )
+{
+  if (!watched || watched.length === 0) {
+    // Handle the case when watched is null, undefined, or an empty array
+    return <p>No watched movies available</p>;
+  }
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
