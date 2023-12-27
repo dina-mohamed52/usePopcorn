@@ -1,10 +1,10 @@
-import './index.css'
+import "./index.css";
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
-
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+// const KEY = "f84fc31d";
 const KEY = "2f1af737";
 
 export default function App() {
@@ -53,11 +53,16 @@ export default function App() {
         try {
           setIsLoading(true);
           setError("");
+const url =
+  query.length >= 3
+    ? `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+    : `http://www.omdbapi.com/?apikey=${KEY}&s=avengers`; // Change 'avengers' to your desired default search
 
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal }
-          );
+const res = await fetch(url, { signal: controller.signal });
+          // const res = await fetch(
+          //   `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          //   { signal: controller.signal }
+          // );
 
           if (!res.ok)
             throw new Error("Something went wrong with fetching movies");
@@ -77,11 +82,11 @@ export default function App() {
         }
       }
 
-      if (query.length < 3) {
-        setMovies([]);
-        setError("");
-        return;
-      }
+      // if (query.length < 3) {
+      //   setMovies([]);
+      //   setError("");
+      //   return;
+      // }
 
       handleCloseMovie();
       fetchMovies();
